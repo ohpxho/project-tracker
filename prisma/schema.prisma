@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  id Int @id @default(autoincrement())
+  name String
+  description String @db.MediumText
+  technologies String
+  createdAt DateTime @default(now())
+  modules Module[]
+}
+
+model Module {
+  id Int  @id @default(autoincrement())
+  title String
+  project Project @relation(fields: [projectId], references: [id])
+  projectId Int
+
+  description String @db.MediumText
+  createdAt DateTime @default(now())
+  tasks Task[]
+}
+
+model Tag {
+  id Int @id @default(autoincrement())
+  title String
+  createdAt DateTime @default(now())
+  tasks Task[]
+}
+
+model Task {
+  id Int @id @default(autoincrement())
+  title String
+  description String @db.MediumText
+  createdAt DateTime @default(now())
+  module Module @relation(fields: [moduleId], references: [id])
+  moduleId Int
+
+  tag Tag @relation(fields: [tagId], references: [id])
+  tagId Int
+
+  problems Problem[]
+  notes Note[]
+}
+
+model Problem {
+  id Int @id @default(autoincrement())
+  problem String @db.MediumText
+  solution String @db.MediumText
+  task Task @relation(fields: [taskId], references: [id])
+  taskId Int
+
+  createdAt DateTime @default(now())
+}
+
+model Note {
+  id Int @id @default(autoincrement())
+  note String @db.MediumText
+  task Task @relation(fields: [taskId], references: [id])
+  taskId Int
+
+  createdAt DateTime @default(now())
+}
