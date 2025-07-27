@@ -4,4 +4,13 @@ async function getAll() {
 	return await prisma.project.findMany();
 }
 
-export { getAll };
+async function getAllWithModules() {
+	return await prisma.project.findMany({
+		include: {
+			modules: true,
+			_count: true,
+		},
+	});
+}
+
+export { getAll, getAllWithModules };

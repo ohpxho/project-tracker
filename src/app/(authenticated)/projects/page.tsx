@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { ProjectsTable } from "./table";
+import { ProjectsTable } from "./(table)/table";
 import Project from "@/app/api/projects/route";
 import useSWR from "swr";
 import { toast, Toaster } from "sonner";
@@ -28,7 +28,7 @@ export default function Projects() {
 		<div className="relative w-full max-w-[1440px]">
 			<Toaster position="bottom-center" richColors />
 			<div>
-				<ProjectsTable />
+				<ProjectsTable projects={projects || []} />
 			</div>
 		</div>
 	);
