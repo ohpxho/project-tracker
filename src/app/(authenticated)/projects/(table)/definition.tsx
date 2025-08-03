@@ -89,7 +89,7 @@ const columns: ColumnDef<Project>[] = [
 							/>
 						</div>
 					) : (
-						<span>No modules yet</span>
+						<span className="text-gray-500">No modules yet</span>
 					)}
 				</div>
 			);

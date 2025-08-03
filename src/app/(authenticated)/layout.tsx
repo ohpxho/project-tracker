@@ -170,7 +170,7 @@ export default function AuthenticatedLayout({
 					{/* Main Content Area */}
 					<div className="flex-1 flex flex-col">
 						{/* Top Navigation */}
-						<header className="h-16 border-b border-gray-200 flex items-center px-6 justify-between bg-white">
+						<header className="h-16 min-h-16 border-b border-gray-200 flex items-center px-6 justify-between bg-white">
 							<div className="flex gap-4 items-center">
 								<PanelRightOpen className="h-5 w-5" strokeWidth={1.5} />
 								<div className="h-4 border-r border-gray-200"></div>

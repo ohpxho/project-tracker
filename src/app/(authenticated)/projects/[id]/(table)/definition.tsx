@@ -1,7 +1,6 @@
 "use client";
 
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
-import axios from "axios";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -14,10 +13,11 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Project } from "@/lib/types";
+import { Module } from "@/lib/types";
 import CircularProgress from "@/components/customized/progress/progress-08";
+import Status from "@/components/status";
 
-const columns: ColumnDef<Project>[] = [
+const columns: ColumnDef<Module>[] = [
 	{
 		id: "select",
 		header: ({ table }) => (
@@ -75,15 +75,21 @@ const columns: ColumnDef<Project>[] = [
 		cell: ({ row }) => {
 			const progress: number = row.getValue("progress");
 			return (
-				<div className="max-w-xs mx-auto w-full flex flex-col items-center">
-					<CircularProgress
-						value={progress}
-						renderLabel={(progress) => `${progress}%`}
-						size={60}
-						strokeWidth={5}
-						showLabel
-						labelClassName="text-xs"
-					/>
+				<div className="w-fit">
+					{progress != null ? (
+						<div className="max-w-xs flex flex-col items-center">
+							<CircularProgress
+								value={progress}
+								renderLabel={(progress) => `${progress}%`}
+								size={60}
+								strokeWidth={5}
+								showLabel
+								labelClassName="text-[9px]"
+							/>
+						</div>
+					) : (
+						<span className="text-gray-500">No modules yet</span>
+					)}
 				</div>
 			);
 		},
@@ -92,7 +98,7 @@ const columns: ColumnDef<Project>[] = [
 		accessorKey: "status",
 		header: () => <div className="">Status</div>,
 		cell: ({ row }) => {
-			return <div className="">{row.getValue("status")}</div>;
+			return <Status status={row.getValue("status")} />;
 		},
 	},
 	{

@@ -13,4 +13,14 @@ async function getAllWithModules() {
 	});
 }
 
-export { getAll, getAllWithModules };
+async function getProjectDetails(id: number) {
+	return await prisma.project.findFirst({
+		where: { id },
+		include: {
+			modules: true,
+			_count: true,
+		},
+	});
+}
+
+export { getAll, getAllWithModules, getProjectDetails };

@@ -1,8 +1,12 @@
 "use client";
 
-import { ProjectsTable } from "./(table)/table";
 import useSWR from "swr";
 import { toast, Toaster } from "sonner";
+import { use } from "react";
+
+interface PropType {
+	params: Promise<{ id: number }>;
+}
 
 const fetcher = (url: string) =>
 	fetch(url).then(async (res) => {
@@ -13,8 +17,14 @@ const fetcher = (url: string) =>
 		return res.json();
 	});
 
-export default function Projects() {
-	const { data: projects, error } = useSWR("/api/projects", fetcher);
+export default function Project({
+	params,
+}: {
+	params: Promise<{ id: string }>;
+}) {
+	const { id } = use(params);
+
+	const { data: project, error } = useSWR(`/api/projects/${id}`, fetcher);
 
 	if (error) {
 		toast.error("Something went wrong", {
@@ -26,8 +36,9 @@ export default function Projects() {
 		<div className="relative w-full max-w-[1440px]">
 			<Toaster position="bottom-center" richColors />
 			<div>
-				<ProjectsTable projects={projects || []} />
+				<h1 className="font-bold">{project?.name}</h1>
 			</div>
+			<div className="mt-8"></div>
 		</div>
 	);
 }

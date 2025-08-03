@@ -36,14 +36,14 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { Project } from "@/lib/types";
+import { Module, Project } from "@/lib/types";
 import columns from "./definition";
 
 interface PropTypes {
-	projects: Project[];
+	modules: Module[];
 }
 
-export function ProjectsTable({ projects }: PropTypes) {
+export function ModulesTable({ modules }: PropTypes) {
 	const router = useRouter();
 	const [sorting, setSorting] = React.useState<SortingState>([]);
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -54,7 +54,7 @@ export function ProjectsTable({ projects }: PropTypes) {
 	const [rowSelection, setRowSelection] = React.useState({});
 
 	const table = useReactTable({
-		data: projects,
+		data: modules,
 		columns,
 		onSortingChange: setSorting,
 		onColumnFiltersChange: setColumnFilters,
