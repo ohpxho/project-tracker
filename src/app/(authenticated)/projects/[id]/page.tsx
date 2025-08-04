@@ -2,6 +2,7 @@
 
 import useSWR from "swr";
 import { toast, Toaster } from "sonner";
+import ProjectDesc from "./desc";
 import { use } from "react";
 
 interface PropType {
@@ -37,6 +38,9 @@ export default function Project({
 			<Toaster position="bottom-center" richColors />
 			<div>
 				<h1 className="font-bold">{project?.name}</h1>
+			</div>
+			<div>
+				<ProjectDesc data={project} />
 			</div>
 			<div className="mt-8"></div>
 		</div>
