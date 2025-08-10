@@ -26,7 +26,7 @@ export default function Project({
 	const { id } = use(params);
 
 	const { data: project, error } = useSWR(`/api/projects/${id}`, fetcher);
-
+  
 	if (error) {
 		toast.error("Something went wrong", {
 			description: error.message,
@@ -36,9 +36,6 @@ export default function Project({
 	return (
 		<div className="relative w-full max-w-[1440px]">
 			<Toaster position="bottom-center" richColors />
-			<div>
-				<h1 className="font-bold">{project?.name}</h1>
-			</div>
 			<div>
 				<ProjectDesc data={project} />
 			</div>
