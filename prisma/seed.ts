@@ -2,16 +2,32 @@ import { Prisma, PrismaClient } from "@/generated/prisma";
 
 const prisma = new PrismaClient();
 
+const tagsData = [
+	{ title: "fullstack" },
+	{ title: "frontend" },
+	{ title: "backend" },
+	{ title: "database" },
+  { title: "prisma" },
+  { title: "nextjs"},
+  { title: "laravel"}
+];
+
 const projectsData = [
 	{
 		name: "Project Tracker",
 		description: "My development project tracker",
-		technologies: "nextjs,prisma",
+    tags: {
+      nextjs : "nextjs", 
+      laravel: "laravel"
+    }
 	},
 	{
 		name: "E-commerce App",
 		description: "Online shopping platform",
-		technologies: "react,nodejs,mongodb",
+    tags: {
+      prisma: "prisma",
+      nextjs: "nextjs"
+    }
 	},
 ];
 
@@ -28,36 +44,46 @@ const modulesData = [
 	},
 ];
 
-const tagsData = [
-	{ title: "fullstack" },
-	{ title: "frontend" },
-	{ title: "backend" },
-	{ title: "database" },
-];
 
 const tasksData = [
 	{
 		title: "Kanban board",
 		description: "Task monitoring board",
 		moduleTitle: "Project Tracker",
-		tagTitle: "fullstack",
+    tags: {
+      fullstack: "fullstack",
+    }
 	},
 	{
 		title: "User authentication",
 		description: "Login and registration system",
 		moduleTitle: "User Management",
-		tagTitle: "backend",
+    tags: {
+      frontend: "frontend",
+      backend: "backend",
+    }
 	},
 ];
 
 async function seed() {
-	const projects = await Promise.all(
-		projectsData.map((data) => prisma.project.create({ data }))
-	);
-
 	const tags = await Promise.all(
 		tagsData.map((data) => prisma.tag.create({ data }))
 	);
+
+	const projects = await Promise.all(
+		projectsData.map((data) => { 
+      const tgs = tags.filter((tag) => data.tags[tag.title as keyof typeof data.tags])
+      return prisma.project.create({
+        data: {
+          name: data.name,
+          description: data.description,
+          tags: {
+            connect: [...tgs]
+          }
+        }
+      });
+	  })
+  );
 
 	const modules = await Promise.all(
 		modulesData.map((data) => {
@@ -75,13 +101,15 @@ async function seed() {
 	await Promise.all(
 		tasksData.map((data) => {
 			const module = modules.find((m) => m.title === data.moduleTitle);
-			const tag = tags.find((t) => t.title === data.tagTitle);
+			const tag = tags.filter((t) => data.tags[t.title as keyof typeof data.tags]);
 			return prisma.task.create({
 				data: {
 					title: data.title,
 					description: data.description,
 					moduleId: module!.id,
-					tagId: tag!.id,
+					tags: {
+            connect: [...tag]
+          }
 				},
 			});
 		})

@@ -3,7 +3,7 @@
 import { Project } from "@/lib/types";
 import { useState, useEffect, KeyboardEvent } from "react";
 import { Separator } from "@/components/ui/separator";
-import { Edit, Save } from "lucide-react";
+import { Edit, Save, Clock } from "lucide-react";
 import dynamic from "next/dynamic";
 
 const MDEditor = dynamic(
@@ -51,7 +51,7 @@ export default function ProjectDesc({ data }: PropType) {
 
 	return (
     <div className="w-full flex flex-col items-center">
-      <div className="flex flex-col min-w-[700px] w-full max-w-6xl mt-8 gap-4 px-4">
+      <div className="flex flex-col min-w-[500px] w-full max-w-4xl mt-12 gap-4 px-4">
         <div className="w-full px-4 flex items-end justify-end">
           { !isEditing?
             (
@@ -84,7 +84,6 @@ export default function ProjectDesc({ data }: PropType) {
             />
           ) : (
             <h1 
-              onClick={() => setIsEditing(true)}
               className="font-bold text-4xl px-4"
             >
               {title || "Untitled Project"}
@@ -92,8 +91,12 @@ export default function ProjectDesc({ data }: PropType) {
           )}
         </div>
 
-        <div className="mb-4 text-sm text-gray-500 px-4">
-          Created: {new Date(data?.createdAt).toLocaleDateString()}
+        <div className="mb-4 flex gap-4 text-sm px-4">
+          <div className="flex items-center gap-1 text-gray-500">
+            <Clock className="h-4 w-4" strokeWidth={1.5}/>
+            <span>Created At</span>
+          </div>
+          {new Date(data?.createdAt).toLocaleDateString()}
         </div>
 
         <Separator />

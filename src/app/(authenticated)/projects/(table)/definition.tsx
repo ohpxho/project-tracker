@@ -47,20 +47,20 @@ const columns: ColumnDef<Project>[] = [
 		cell: ({ row }) => <div className="capitalize">{row.getValue("name")}</div>,
 	},
 	{
-		accessorKey: "technologies",
+		accessorKey: "tags",
 		header: ({ column }) => {
 			return (
 				<Button
 					variant="ghost"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Tech Stack
+					Tags
 					<ArrowUpDown />
 				</Button>
 			);
 		},
 		cell: ({ row }) => (
-			<div className="lowercase">{row.getValue("technologies")}</div>
+			<div className="lowercase">{row.getValue("tags")}</div>
 		),
 	},
 	{

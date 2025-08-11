@@ -8,6 +8,7 @@ async function getAllWithModules() {
 	return await prisma.project.findMany({
 		include: {
 			modules: true,
+      tags:true,
 			_count: true,
 		},
 	});
@@ -18,6 +19,7 @@ async function getProjectDetails(id: number) {
 		where: { id },
 		include: {
 			modules: true,
+      tags: true,
 			_count: true,
 		},
 	});

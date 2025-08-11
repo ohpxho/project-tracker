@@ -18,10 +18,11 @@ model Project {
   id Int @id @default(autoincrement())
   name String
   description String @db.MediumText
-  technologies String
   status String @default("open")
   createdAt DateTime @default(now())
   modules Module[]
+  
+  tags Tag[]
 }
 
 model Module {
@@ -41,6 +42,7 @@ model Tag {
   title String
   createdAt DateTime @default(now())
   tasks Task[]
+  projects Project[]
 }
 
 model Task {
@@ -52,10 +54,8 @@ model Task {
 
   module Module @relation(fields: [moduleId], references: [id])
   moduleId Int
-
-  tag Tag @relation(fields: [tagId], references: [id])
-  tagId Int
-
+  
+  tags Tag[]
   problems Problem[]
   notes Note[]
 }
