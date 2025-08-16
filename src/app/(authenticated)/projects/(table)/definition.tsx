@@ -59,9 +59,11 @@ const columns: ColumnDef<Project>[] = [
 				</Button>
 			);
 		},
-		cell: ({ row }) => (
-			<div className="lowercase">{row.getValue("tags")}</div>
-		),
+		cell: ({ row }) => {
+      let tags = row.getValue("tags")?.map((tag) => tag.title);
+      tags = tags.join(", ")
+			return (<div className="lowercase">{ tags }</div>)
+    },
 	},
 	{
 		accessorKey: "createdAt",

@@ -41,9 +41,9 @@ const columns: ColumnDef<Module>[] = [
 		enableHiding: false,
 	},
 	{
-		accessorKey: "name",
-		header: "Name",
-		cell: ({ row }) => <div className="capitalize">{row.getValue("name")}</div>,
+		accessorKey: "title",
+		header: "Title",
+		cell: ({ row }) => <div className="capitalize">{row.getValue("title")}</div>,
 	},
 	{
 		accessorKey: "technologies",

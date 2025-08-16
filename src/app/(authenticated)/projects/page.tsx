@@ -25,9 +25,11 @@ export default function Projects() {
 	return (
 		<div className="relative w-full max-w-[1440px]">
 			<Toaster position="bottom-center" richColors />
-			<div>
-				<ProjectsTable projects={projects || []} />
-			</div>
+      <div className="w-full flex flex-col items-center">
+        <div className="flex flex-col min-w-[500px] w-full max-w-4xl mt-12 gap-4 px-4">
+          <ProjectsTable projects={projects || []} />
+        </div>
+    </div>
 		</div>
 	);
 }
