@@ -20,4 +20,12 @@ interface Module {
 	createdAt: Date;
 }
 
-export type { Project, Module };
+interface Task {
+  id: number;
+  title: string;
+  description: string;
+  status: string;
+  createdAt: Date;
+}
+
+export type { Project, Module, Task };

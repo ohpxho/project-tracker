@@ -129,7 +129,7 @@ export function ModulesTable({ modules }: PropTypes) {
 									key={row.id}
 									data-state={row.getIsSelected() && "selected"}
 									onClick={() => {
-										router.push(`projects/${row.original.id}`);
+										router.push(`/modules/${row.original.id}`);
 									}}
 								>
 									{row.getVisibleCells().map((cell) => (

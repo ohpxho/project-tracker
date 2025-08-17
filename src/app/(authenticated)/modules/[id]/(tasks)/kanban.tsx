@@ -8,9 +8,7 @@ import {
 	KanbanHeader,
 	KanbanProvider,
 } from "@/components/ui/shadcn-io/kanban";
-import { useState } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Project } from "@/lib/types";
+import { Task } from "@/lib/types";
 
 const columns = [
 	{ id: faker.string.uuid(), name: "Open", color: "#6B7280" },
@@ -19,7 +17,7 @@ const columns = [
 ];
 
 interface PropType {
-	data: Project;
+	data: Task[];
 }
 
 export default function ProjectTasksKanban({ data }: PropType) {
