@@ -64,6 +64,7 @@ model Problem {
   id Int @id @default(autoincrement())
   problem String @db.MediumText
   solution String @db.MediumText
+  status String @default("open")
   task Task @relation(fields: [taskId], references: [id])
   taskId Int
 

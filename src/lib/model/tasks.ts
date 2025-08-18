@@ -1,7 +1,7 @@
 import prisma  from '../prisma'
 
 export function getTasksByModule(id: number) {
-  return prisma.task.findUnique({
+  return prisma.task.findMany({
     where: {
       id: id
     }
