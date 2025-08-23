@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/shadcn-io/kanban";
 import { Task } from "@/lib/types";
 import TaskSheet from './sheet';
+import { Button } from '@/components/ui/button';
 
 const columns = [
 	{ id: "open", name: "Open", color: "#6B7280" },
@@ -61,7 +62,9 @@ export default function ProjectTasksKanban({ data }: PropType) {
 						</KanbanHeader>
 						<KanbanCards id={column.id}>
 							{(task) => (
-								<KanbanCard column={column.name} key={task.id} id={task.id} name={task.name} onClick={(e) => onCardClick(task) }>
+								<KanbanCard column={column.name} key={task.id} id={task.id} name={task.name} >
+                                  <div key={task.id} onPointerDown={(e) => e.stopPropagation()} onClick={() => onCardClick(task)} className="">
+
 									<div className="p-3">
 										<h4 className="font-medium text-sm mb-2">{task.name}</h4>
 										{task.description as string && (
@@ -73,6 +76,7 @@ export default function ProjectTasksKanban({ data }: PropType) {
 											{new Date(task.createdAt).toLocaleDateString()}
 										</div>
 									</div>
+                  </div>
 								</KanbanCard>
 							)}
 						</KanbanCards>

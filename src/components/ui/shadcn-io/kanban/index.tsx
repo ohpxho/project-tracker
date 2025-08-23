@@ -91,7 +91,6 @@ export const KanbanBoard = ({ id, children, className }: KanbanBoardProps) => {
 export type KanbanCardProps<T extends KanbanItemProps = KanbanItemProps> = T & {
   children?: ReactNode;
   className?: string;
-  onClick?: (event: React.MouseEvent) => void;
 };
 
 export const KanbanCard = <T extends KanbanItemProps = KanbanItemProps>({
@@ -99,7 +98,6 @@ export const KanbanCard = <T extends KanbanItemProps = KanbanItemProps>({
   name,
   children,
   className,
-  onClick
 }: KanbanCardProps<T>) => {
   const {
     attributes,
@@ -118,12 +116,6 @@ export const KanbanCard = <T extends KanbanItemProps = KanbanItemProps>({
     transform: CSS.Transform.toString(transform),
   };
 
-  const handleClick= (event: React.MouseEvent) => {
-    if (!isDragging && onClick) {
-      onClick(event);
-    }
-  }
-
   return (
     <>
       <div style={style} {...listeners} {...attributes} ref={setNodeRef}>
@@ -131,10 +123,8 @@ export const KanbanCard = <T extends KanbanItemProps = KanbanItemProps>({
           className={cn(
             'cursor-grab gap-4 rounded-md p-3 shadow-sm',
             isDragging && 'pointer-events-none cursor-grabbing opacity-30',
-            onClick && 'cursor-pointer', // Change cursor when clickable
             className
           )}
-          onClick={handleClick} // Add the click handler here
         >
           {children ?? <p className="m-0 font-medium text-sm">{name}</p>}
         </Card>
@@ -223,9 +213,9 @@ export const KanbanProvider = <
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
 
   const sensors = useSensors(
-    useSensor(MouseSensor),
-    useSensor(TouchSensor),
-    useSensor(KeyboardSensor)
+  useSensor(MouseSensor, { activationConstraint: { distance: 8 } }),
+  useSensor(TouchSensor,  { activationConstraint: { delay: 150, tolerance: 5 } }),
+  useSensor(KeyboardSensor)
   );
 
   const handleDragStart = (event: DragStartEvent) => {

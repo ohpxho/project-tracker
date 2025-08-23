@@ -26,6 +26,7 @@ interface Task {
   description: string;
   status: string;
   createdAt: Date;
+  moduleId: number
 }
 
 export type { Project, Module, Task };
