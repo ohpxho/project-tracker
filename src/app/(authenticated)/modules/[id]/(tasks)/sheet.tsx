@@ -61,7 +61,7 @@ export default function TaskSheet({ data, isOpen, setIsOpen }: Proptype) {
             {new Date(data.createdAt).toLocaleDateString()}
           </p>
         </div>
-      <Link href={`/modules/${data.moduleId}/problems`}>Problem</Link>
+      <Link href={`/modules/${data.moduleId}/problems`} target="_blank">Problem</Link>
       </div>
     )}
   </SheetContent>
