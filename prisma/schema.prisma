@@ -46,8 +46,8 @@ model Tag {
 }
 
 model Task {
-  id Int @id @default(autoincrement())
-  title String
+  id String @id 
+  title String @default("Task")
   description String @db.MediumText
   status String @default("open")
   createdAt DateTime @default(now())
@@ -66,7 +66,7 @@ model Problem {
   solution String @db.MediumText
   status String @default("open")
   task Task @relation(fields: [taskId], references: [id])
-  taskId Int
+  taskId String
 
   createdAt DateTime @default(now())
 }
@@ -75,7 +75,7 @@ model Note {
   id Int @id @default(autoincrement())
   note String @db.MediumText
   task Task @relation(fields: [taskId], references: [id])
-  taskId Int
+  taskId String
 
   createdAt DateTime @default(now())
 }

@@ -68,11 +68,11 @@ export default function ProjectTasksKanban({ data }: PropType) {
 						</KanbanHeader>
 						<KanbanCards id={column.id}>
 							{(task) => (
-								<KanbanCard column={column.name} key={task.id} id={task.id} name={task.name} className="cursor-pointer hover:bg-gray-50">
-                  <div key={task.id} onPointerDown={(e) => e.stopPropagation()} onClick={() => onCardClick(task)}>
+								<KanbanCard column={column.name} key={task.id} id={task.id} name={task.name} >
+                  <div key={task.id} onPointerDown={(e) => e.stopPropagation()} onClick={() => onCardClick(task)} className="top-0 w-full h-full">
 
 									<div className="">
-                    <Input type="text" onClick={(e) => e.stopPropagation()} value={task.name} className=" disabled:opacity-100 disabled:text-black disabled:bg-transparent disabled:border-none disabled:shadow-none border-none bg-transparent shadow-none outline-none" disabled={editableCard == task.id? false : false}/>
+                    <Input type="text" value={task.name} className=" disabled:opacity-100 disabled:text-black disabled:bg-transparent disabled:border-none disabled:shadow-none border-none bg-transparent shadow-none outline-none" disabled={editableCard == task.id? false : true}/>
 									</div>
                   </div>
 								</KanbanCard>
