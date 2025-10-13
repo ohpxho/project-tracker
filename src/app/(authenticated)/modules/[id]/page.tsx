@@ -33,7 +33,7 @@ export default function Module({ params }: PropType) {
   return (
     <div className="w-full">
       <Toaster position="bottom-center" richColors />
-      <ProjectTask tasks={data} />
+      <ProjectTask moduleId={id} tasks={data} />
     </div>
   )
 

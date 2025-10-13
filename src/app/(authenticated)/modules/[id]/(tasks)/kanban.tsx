@@ -13,6 +13,7 @@ import TaskSheet from './sheet';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { generateUUIDv4 } from '@/lib/utils';
 
 const columns = [
 	{ id: "open", name: "Open", color: "#6B7280" },
@@ -21,6 +22,7 @@ const columns = [
 ];
 
 interface PropType {
+  moduleId: number
 	data: Task[];
 }
 
@@ -29,6 +31,7 @@ export default function ProjectTasksKanban({ data }: PropType) {
   const [isOpenSheet, setIsOpenSheet] = useState<boolean>(false);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [editableCard, setEditableCard] = useState<string | null>(null);
+  const [buffer, setBuffer] = useState<Task[]>(data || []);
 
   useEffect(() => {
     if(!data) return;
@@ -42,9 +45,24 @@ export default function ProjectTasksKanban({ data }: PropType) {
     column: task.status === "done" ? "done" : task.status === "in-progress" ? "in-progress" : "open"
   }));
 
-  function onCardClick(task: Task) {
+  const onCardClick = (task: Task) => {
     setSelectedTask(task);
     setIsOpenSheet(true);
+  }
+
+  const addCard = (status: string) => {
+    const id = generateUUIDv4();
+    const title = "QWERTY";
+    const desc = "";
+
+    const newCard: Task = {
+      id,
+      title,
+      description: desc,
+      status,
+      moduleId
+    }
+     
   }
 
 	return (
@@ -60,7 +78,7 @@ export default function ProjectTasksKanban({ data }: PropType) {
 								/>
 								<span>{column.name}</span>
                 <Button className="bg-transparent hover:bg-transparen text-gray-500 hover:text-black transition-colors outline-none p-0 shadow-none cursor-pointer">
-                  <Plus height={20} width={20}/>
+                  <Plus height={20} width={20} onClick={addCard}/>
                 </Button>
 							</div>
 

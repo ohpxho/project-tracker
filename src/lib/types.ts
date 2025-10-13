@@ -21,11 +21,11 @@ interface Module {
 }
 
 interface Task {
-  id: number;
+  id: string;
   title: string;
   description: string;
   status: string;
-  createdAt: Date;
+  createdAt?: Date;
   moduleId: number
 }
 

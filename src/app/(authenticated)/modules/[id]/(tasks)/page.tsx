@@ -4,10 +4,11 @@ import ProjectTasksKanban from "./kanban";
 import { Task } from "@/lib/types";
 
 interface PropTypes {
+  moduleId: number,
   tasks: Task[]
 }
 
-export default function ProjectTask({ tasks }: PropTypes) {
+export default function ProjectTask({ moduleId, tasks }: PropTypes) {
 
 	return (
 		<div className="relative w-full max-w-[1440px]">
@@ -16,7 +17,7 @@ export default function ProjectTask({ tasks }: PropTypes) {
 				<span>Monitor your project's task in this kanban board</span>
 			</div>
 			<div className="mt-8">
-				<ProjectTasksKanban data={tasks} />
+				<ProjectTasksKanban moduleId={moduleId} data={tasks} />
 			</div>
 		</div>
 	);
