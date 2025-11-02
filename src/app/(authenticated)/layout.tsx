@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, ReactNode } from "react";
-import { usePathname } from "next/navigation"
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Loading from "@/components/loading";
 import {
@@ -63,14 +63,14 @@ interface AuthenticatedLayoutProps {
 export default function AuthenticatedLayout({
 	children,
 }: AuthenticatedLayoutProps) {
-  const pathname = usePathname();
+	const pathname = usePathname();
 	const [isLoading, setIsLoading] = useState(false);
 
-  const isProblemsPage = /\/modules\/[^/]+\/problems/.test(pathname)
-  
-  if (isProblemsPage) {
-    return <>{children}</> 
-  }
+	const isProblemsPage = /\/modules\/[^/]+\/problems/.test(pathname);
+
+	if (isProblemsPage) {
+		return <>{children}</>;
+	}
 
 	return (
 		<>
